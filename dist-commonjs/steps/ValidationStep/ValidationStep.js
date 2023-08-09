@@ -12,7 +12,7 @@ var columns = require('./components/columns.js');
 var Table = require('../../components/Table.js');
 var SubmitDataAlert = require('../../components/Alerts/SubmitDataAlert.js');
 
-const ValidationStep = ({ initialData }) => {
+const ValidationStep = ({ initialData, file }) => {
     const { translations, fields, onClose, onSubmit, rowHook, tableHook } = useRsi.useRsi();
     const styles = react.useStyleConfig("ValidationStep");
     const [data, setData] = react$1.useState(react$1.useMemo(() => dataMutations.addErrorsAndRunHooks(initialData, fields, rowHook, tableHook), 
@@ -64,7 +64,7 @@ const ValidationStep = ({ initialData }) => {
             return true;
         });
         const invalidData = all.filter((value) => !validData.includes(value));
-        onSubmit({ validData, invalidData, all: data });
+        onSubmit({ validData, invalidData, all: data }, file);
         onClose();
     };
     const onContinue = () => {

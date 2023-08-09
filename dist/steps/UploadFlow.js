@@ -21,6 +21,7 @@ var StepType;
 const UploadFlow = ({ nextStep }) => {
     const { initialStepState } = useRsi();
     const [state, setState] = useState(initialStepState || { type: StepType.upload });
+    const [uploadedFile, setUploadedFile] = useState(null);
     const { maxRecords, translations, uploadStepHook, selectHeaderStepHook, matchColumnsStepHook } = useRsi();
     const toast = useToast();
     const errorToast = useCallback((description) => {
@@ -35,7 +36,8 @@ const UploadFlow = ({ nextStep }) => {
     }, [toast, translations]);
     switch (state.type) {
         case StepType.upload:
-            return (jsx(UploadStep, { onContinue: async (workbook) => {
+            return (jsx(UploadStep, { onContinue: async (workbook, file) => {
+                    setUploadedFile(file);
                     const isSingleSheet = workbook.SheetNames.length === 1;
                     if (isSingleSheet) {
                         if (maxRecords && exceedsMaxRecords(workbook.Sheets[workbook.SheetNames[0]], maxRecords)) {
@@ -106,7 +108,7 @@ const UploadFlow = ({ nextStep }) => {
                     }
                 } }));
         case StepType.validateData:
-            return jsx(ValidationStep, { initialData: state.data });
+            return jsx(ValidationStep, { initialData: state.data, file: uploadedFile });
         default:
             return jsx(Progress, { isIndeterminate: true });
     }

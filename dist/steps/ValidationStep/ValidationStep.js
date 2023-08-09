@@ -8,7 +8,7 @@ import { generateColumns } from './components/columns.js';
 import { Table } from '../../components/Table.js';
 import { SubmitDataAlert } from '../../components/Alerts/SubmitDataAlert.js';
 
-const ValidationStep = ({ initialData }) => {
+const ValidationStep = ({ initialData, file }) => {
     const { translations, fields, onClose, onSubmit, rowHook, tableHook } = useRsi();
     const styles = useStyleConfig("ValidationStep");
     const [data, setData] = useState(useMemo(() => addErrorsAndRunHooks(initialData, fields, rowHook, tableHook), 
@@ -60,7 +60,7 @@ const ValidationStep = ({ initialData }) => {
             return true;
         });
         const invalidData = all.filter((value) => !validData.includes(value));
-        onSubmit({ validData, invalidData, all: data });
+        onSubmit({ validData, invalidData, all: data }, file);
         onClose();
     };
     const onContinue = () => {

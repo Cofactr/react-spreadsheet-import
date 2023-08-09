@@ -60,7 +60,7 @@ const DropZone = ({ onContinue, isLoading }) => {
             const arrayBuffer = await readFilesAsync.readFileAsync(file);
             const workbook = XLSX__namespace.read(arrayBuffer, { cellDates: true, dateNF: dateFormat, raw: parseRaw });
             setLoading(false);
-            onContinue(workbook);
+            onContinue(workbook, file);
         },
     });
     return (jsxRuntime.jsxs(react.Box, { ...getRootProps(), ...getDropZoneBorder.getDropZoneBorder(styles.dropZoneBorder), width: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", flex: 1, children: [jsxRuntime.jsx("input", { ...getInputProps(), "data-testid": "rsi-dropzone" }), isDragActive ? (jsxRuntime.jsx(react.Text, { sx: styles.dropzoneText, children: translations.uploadStep.dropzone.activeDropzoneTitle })) : loading || isLoading ? (jsxRuntime.jsx(react.Text, { sx: styles.dropzoneText, children: translations.uploadStep.dropzone.loadingTitle })) : (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx(react.Text, { sx: styles.dropzoneText, children: translations.uploadStep.dropzone.title }), jsxRuntime.jsx(react.Button, { sx: styles.dropzoneButton, onClick: open, children: translations.uploadStep.dropzone.buttonTitle })] }))] }));

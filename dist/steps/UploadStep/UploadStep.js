@@ -10,9 +10,9 @@ const UploadStep = ({ onContinue }) => {
     const [isLoading, setIsLoading] = useState(false);
     const styles = useStyleConfig("UploadStep");
     const { translations, fields } = useRsi();
-    const handleOnContinue = useCallback(async (data) => {
+    const handleOnContinue = useCallback(async (data, file) => {
         setIsLoading(true);
-        await onContinue(data);
+        await onContinue(data, file);
         setIsLoading(false);
     }, [onContinue]);
     return (jsxs(ModalBody, { children: [jsx(Heading, { sx: styles.heading, children: translations.uploadStep.title }), jsx(Text, { sx: styles.title, children: translations.uploadStep.manifestTitle }), jsx(Text, { sx: styles.subtitle, children: translations.uploadStep.manifestDescription }), jsxs(Box, { sx: styles.tableWrapper, children: [jsx(ExampleTable, { fields: fields }), jsx(FadingOverlay, {})] }), jsx(DropZone, { onContinue: handleOnContinue, isLoading: isLoading })] }));
