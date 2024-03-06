@@ -387,6 +387,7 @@ const themeOverrides = {
                 border: "none",
                 borderTop: "1px solid var(--rdg-border-color)",
                 blockSize: "100%",
+                flex: "1",
                 // we have to use vars here because chakra does not autotransform unknown props
                 "--rdg-row-height": "35px",
                 "--rdg-color": "var(--chakra-colors-textColor)",
